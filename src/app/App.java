@@ -3,41 +3,58 @@ package app;
 import java.awt.*;
 import javax.swing.*;
 
+/// Starbucks - This app is a calculator to calculate the cost of a cup of starbucks
+/// based on the cost of the ingredients
+
+/* Class Ideas
+ * Size of the cup
+ * Cost
+ * markup?
+ * Ingredients
+ * 		Types of ingredients
+ * 
+ * Buttons - Ingredients
+ * Buttons - Calculate
+ * Label? or something else
+ * */ 
+
 public class App extends JFrame {
-	private JLabel helloLabel;
-	private JButton goButton;
-	private FlowLayout flowLayout;
+	private GridBagLayout mainLayout;
+	private JPanel leftPanel;
+	private JPanel rightPanel;
+	private JPanel footerPanel;
 
 	public App() {
 		super("Starbucks App");
 		
-		System.out.println("App is starting");
-		
 		// add a flow layout to manage our component positions
-		this.flowLayout = new FlowLayout();
-		setLayout(this.flowLayout);
+		this.mainLayout = new GridBagLayout();
+		setLayout(this.mainLayout);
 		
 		// set the window size
 		setMinimumSize(new Dimension(800,600));
-		
-		// ensures the app is the right dimensions
-		pack();
-		
-		// add a label
-		this.helloLabel = new JLabel();
-		this.helloLabel.setText("toast");
-		add(this.helloLabel);
-		
-		for (int i = 0; i < 100; i++) {
-			add(new JLabel("stuff"));
-		}
-		
-		// add a button
-		this.goButton = new JButton("go");
-		add(this.goButton);
+		setSize(new Dimension(1024,768));
+
+		loadComponents();
 		
 		// make the app visible to users
+		pack();
 		setVisible(true);
+	}
+	
+	private void loadComponents() {
+		// load panels
+		this.leftPanel = new JPanel();
+		this.leftPanel.setBackground(Color.GREEN);
+		this.rightPanel = new JPanel();
+		this.rightPanel.setBackground(Color.BLUE);
+		this.footerPanel = new JPanel();
+		this.footerPanel.setBackground(Color.RED);
+		
+		// add the panels
+		add(this.leftPanel);
+		add(this.rightPanel);
+		add(this.footerPanel);
 	}
 
 	public static void main(String[] args) {
