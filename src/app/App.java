@@ -1,6 +1,8 @@
 package app;
 
 import java.awt.*;
+import java.awt.event.*;
+
 import javax.swing.*;
 
 /// Starbucks - This app is a calculator to calculate the cost of a cup of starbucks
@@ -24,7 +26,7 @@ public class App extends JFrame {
 	private JPanel rightPanel;
 	private JPanel footerPanel;
 	private GridBagConstraints constraints;
-	private GridLayout leftLayout;
+	private GridBagLayout leftLayout;
 	private BoxLayout rightLayout;
 	private BorderLayout footerLayout;
 	
@@ -34,6 +36,7 @@ public class App extends JFrame {
 		// add a flow layout to manage our component positions
 		this.mainLayout = new GridBagLayout();
 		setLayout(this.mainLayout);
+		this.setBackground(Color.GREEN);
 		
 		// set the window size
 		setMinimumSize(new Dimension(800,600));
@@ -57,12 +60,11 @@ public class App extends JFrame {
 		// load panels
 		this.leftPanel = new JPanel();
 		this.leftPanel.setBackground(Color.GREEN);
-		leftLayout = new GridLayout();
-		leftLayout.setRows(3);
-		leftLayout.setColumns(3);
+		this.leftPanel.setPreferredSize(new Dimension(400, 400));
+		leftLayout = new GridBagLayout();
 		this.leftPanel.setLayout(leftLayout);
-		
-		
+
+		GridBagConstraints c = new GridBagConstraints();
 		
 		this.rightPanel = new JPanel();
 		this.rightPanel.setBackground(Color.BLUE);
@@ -75,16 +77,20 @@ public class App extends JFrame {
 		footerLayout = new BorderLayout();
 		this.footerPanel.setLayout(footerLayout);
 		
-		// TODO: This is not laying out in a 3x3 grid
-		this.leftPanel.add(new JButton("1"));
-		this.leftPanel.add(new JButton("2"));
-		this.leftPanel.add(new JButton("3"));
-		this.leftPanel.add(new JButton("4"));
-		this.leftPanel.add(new JButton("5"));
-		this.leftPanel.add(new JButton("6"));
-		this.leftPanel.add(new JButton("7"));
-		this.leftPanel.add(new JButton("8"));
-		this.leftPanel.add(new JButton("9"));
+		int counter = 1;
+		for (int y = 0; y < 3; y++) {
+			for (int x = 0; x < 3; x++) {
+				c.gridx = x;
+				c.gridy = y;
+				c.insets = new Insets(10, 10, 10, 10);
+				JButton ingredientButton = new JButton(String.valueOf(counter));
+				ingredientButton.addActionListener(evt -> handleButton(evt, "Toast"));
+				// lets make it tell me what button was pressed
+				this.leftPanel.add(ingredientButton, c);
+				counter++;
+			}
+		}
+
 		
 		this.rightPanel.add(new JLabel("Stuff"));
 		
@@ -112,6 +118,10 @@ public class App extends JFrame {
 		constraints.gridy = 1;
 		constraints.gridwidth = 2;
 		add(this.footerPanel, constraints);
+	}
+	
+	public void handleButton(ActionEvent evt, String message) {
+		System.out.println("Button Clicked" + message);
 	}
 
 	public static void main(String[] args) {
